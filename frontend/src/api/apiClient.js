@@ -17,11 +17,16 @@ export async function apiFetch(endpoint, options = {}) {
   const url = `${BASE_URL}${endpoint}${queryParams ? "?" + queryParams : ""}`;
 
   // 3. BUILD FETCH CONFIG
+  // Try to pick up a token from localStorage (admin or user)
+  const token = typeof localStorage !== 'undefined' ? (localStorage.getItem('adminToken') || localStorage.getItem('userToken')) : null;
+
   const config = {
     method: method,
     headers: {
       // Default headers if body not FormData
-      ...(body instanceof FormData ? {} : { 'Content-Type': 'application/json' })
+      ...(body instanceof FormData ? {} : { 'Content-Type': 'application/json' }),
+      // Attach Authorization if token exists
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   };
   // Add body if has
@@ -45,11 +50,12 @@ if (body) {
 
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({})); // Try to parse error message
-      throw new Error(
-        `HTTP error! Status: ${res.status} - ${
-          errorData.message || res.statusText
-        }`
-      );
+      const err = new Error(`HTTP error! Status: ${res.status} - ${errorData.message || res.statusText}`);
+      // attach details for callers
+      err.status = res.status;
+      err.data = errorData;
+      console.error("[API Fetch] HTTP error response data:", errorData);
+      throw err;
     }
 
     // Ignore return data if status No Content

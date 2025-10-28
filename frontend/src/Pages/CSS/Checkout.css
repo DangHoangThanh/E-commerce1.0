@@ -1,3 +1,4 @@
+/* ==== Checkout Page Layout ==== */
 .Checkout-page {
   padding: 50px 20%;
   min-height: calc(100vh - 400px);
@@ -11,27 +12,20 @@
   justify-content: space-evenly;
   margin-top: 20px;
   width: 100%;
+  gap: 20px;
 }
 
-.Checkout-items,
-.Checkout-right > div {
+/* ==== Cart Items Section ==== */
+.Checkout-items {
+  width: 50%;
   border: 1px solid #ddd;
   padding: 15px;
   border-radius: 8px;
   background: #fff;
 }
 
-.Checkout-items h3,
-.Checkout-right > div h3{
+.Checkout-items h3 {
   margin-bottom: 10px;
-}
-
-
-
-
-
-.Checkout-items {
-  width: 50%;
 }
 
 .Checkout-item {
@@ -46,10 +40,7 @@
   border-radius: 5px;
 }
 
-
-
-
-
+/* ==== Right Side (Form, Summary, Payments) ==== */
 .Checkout-right {
   display: flex;
   flex-direction: column;
@@ -57,9 +48,18 @@
   width: 35%;
 }
 
+.Checkout-right > div {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: #fff;
+}
 
+.Checkout-right h3 {
+  margin-bottom: 10px;
+}
 
-
+/* ==== Shipping Form ==== */
 .Checkout-shipinfo form {
   display: flex;
   flex-direction: column;
@@ -72,35 +72,34 @@
   border-radius: 5px;
 }
 
+/* ==== Summary ==== */
+.Checkout-summary {
+  background: #fffbea;
+}
 
-
-
-
+/* ==== Payment Section ==== */
 .Checkout-payments {
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
 .Checkout-payments label {
   display: flex;
   align-items: center;
-  /* justify-content: center; */
-  
+  cursor: pointer;
 }
 
 .Checkout-payments label input {
-  margin: 10px;
+  margin-right: 10px;
 }
 
 .Checkout-payments label img {
-  margin: 10px;
+  margin-right: 10px;
   width: 60px;
 }
 
-
-
-
-
+/* ==== Place Order Button ==== */
 .Checkout-placeorder {
   padding: 10px;
   height: 3rem;
@@ -108,4 +107,11 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.Checkout-placeorder:hover {
+  background: #45a049;
+  color: white;
 }
